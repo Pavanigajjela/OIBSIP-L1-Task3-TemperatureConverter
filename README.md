@@ -71,7 +71,7 @@ Simply open the `index.html` file in any modern web browser to use the temperatu
 2. Save the screenshot as `screenshot.png` in the project folder
 3. The screenshot will automatically display in this README
 
-![Temperature Converter Screenshot](screenshot.png)
+![Temperature Converter Screenshot](screenshot3.png)
 
 ## Video Demonstration
 
