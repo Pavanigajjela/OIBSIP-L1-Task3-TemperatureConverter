@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    width: 800px;
+    max-width: 100%;
+    min-height: 500px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.converter-box {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.results-panel {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #00bfa5;
+    color: white;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.input-group input[type="number"],
+.input-group select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: inherit;
+}
+
+.input-group input[type="number"]::placeholder {
+    color: #999;
+}
+
+.input-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+}
+
+.input-group select option {
+    background: #fff;
+    color: #333;
+}
+
+.input-group input[type="number"]:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #00bfa5;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.1);
+}
+
+.error {
+    display: block;
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    min-height: 20px;
+    font-weight: 500;
+}
+
+.convert-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: #00bfa5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+}
+
+.convert-btn:hover {
+    background-color: #00a896;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 191, 165, 0.3);
+}
+
+.convert-btn:active {
+    transform: translateY(0);
+}
+
+.results h2 {
+    color: white;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    width: 100%;
+    backdrop-filter: blur(5px);
+}
+
+.result-label {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+}
+
+.result-value {
+    font-weight: 700;
+    color: white;
+    font-size: 1.8rem;
+}
+
+.unit {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2rem;
+    margin-left: 5px;
+    font-weight: 500;
+}
+
+.warning {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    display: none;
+    font-weight: 500;
+}
+
+.warning.show {
+    display: block;
+}

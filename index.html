@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="converter-box">
+            <h1>Temperature Converter</h1>
+            
+            <div class="input-group">
+                <label for="temperature">Temperature Value:</label>
+                <input type="number" id="temperature" placeholder="Enter temperature" step="any">
+                <span id="error-message" class="error"></span>
+            </div>
+            
+            <div class="input-group">
+                <label for="unit">Input Unit:</label>
+                <select id="unit">
+                    <option value="celsius">Celsius (°C)</option>
+                    <option value="fahrenheit">Fahrenheit (°F)</option>
+                    <option value="kelvin">Kelvin (K)</option>
+                </select>
+            </div>
+            
+            <button id="convert-btn" class="convert-btn">Convert</button>
+        </div>
+        
+        <div class="results-panel">
+            <h2>Converted Values:</h2>
+            <div class="result-item">
+                <span class="result-label">Celsius:</span>
+                <span id="celsius-result" class="result-value">--</span>
+                <span class="unit">°C</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Fahrenheit:</span>
+                <span id="fahrenheit-result" class="result-value">--</span>
+                <span class="unit">°F</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Kelvin:</span>
+                <span id="kelvin-result" class="result-value">--</span>
+                <span class="unit">K</span>
+            </div>
+            <div id="absolute-zero-warning" class="warning"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
