@@ -1,58 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temperature Converter</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter · Soft Purple</title>
+  <style>
+    /* ---------- RESET ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+
+      /* Soft purple gradient background */
+      background: linear-gradient(145deg, #c8a6e8 0%, #b284d9 40%, #9b6bc9 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ---------- TITLE CARD / SPLASH SCREEN ---------- */
+    .title-card {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #c8a6e8 0%, #b284d9 40%, #9b6bc9 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 0.5s ease-out 2s forwards;
+    }
+
+    /* ---------- CONVERT BUTTON ---------- */
+    .convert-button {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      background: linear-gradient(145deg, #9b6bc9 0%, #7b4fc9 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(123, 79, 201, 0.3);
+      font-family: inherit;
+    }
+
+    .convert-button:hover {
+      background: linear-gradient(145deg, #8b5bb9 0%, #6b3fb9 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(123, 79, 201, 0.4);
+    }
+
+    .convert-button:active {
+      transform: translateY(0);
+    }
+
+    .title-text {
+      font-size: 3rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: slideUp 0.8s ease-out;
+      color: #1e1b2f;
+    }
+
+    .title-text span {
+      color: #3b1e8a;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #2e2445;
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    .info-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #3b1e8a;
+      margin-top: 10px;
+      animation: slideUp 0.8s ease-out 0.4s both;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ---------- TOP & BOTTOM BUBBLE DECORATIONS ---------- */
+    body::before,
+    body::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      pointer-events: none;
+    }
+
+    body::before {
+      width: 220px;
+      height: 220px;
+      top: -80px;
+      left: -60px;
+      box-shadow: 130px 0 0 rgba(255, 255, 255, 0.10),
+                  260px 0 0 rgba(255, 255, 255, 0.08);
+    }
+
+    body::after {
+      width: 180px;
+      height: 180px;
+      bottom: -70px;
+      right: -40px;
+      box-shadow: -140px 0 0 rgba(255, 255, 255, 0.10),
+                  -280px 0 0 rgba(255, 255, 255, 0.07);
+    }
+
+    /* Extra bubble on bottom‑left (small) */
+    .bubble-extra {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.09);
+      bottom: 40px;
+      left: 60px;
+      pointer-events: none;
+    }
+
+    /* ---------- CARD ---------- */
+    .card {
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 22px;
+      padding: 2.4rem 2.2rem 2.6rem;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 18px 40px -10px rgba(70, 20, 120, 0.25),
+                  0 0 0 1px rgba(255, 255, 255, 0.45) inset;
+      transition: transform 0.3s ease;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out 2.5s forwards;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    /* ---------- HEADING ---------- */
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2.2rem;
+      letter-spacing: -0.3px;
+      color: #1e1b2f;
+    }
+
+    h1 span {
+      color: #3b1e8a;
+      font-weight: 800;
+    }
+
+    /* ---------- ROW LAYOUT ---------- */
+    .row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.3rem;
+    }
+
+    .row label {
+      flex: 0 0 105px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2e2445;
+      letter-spacing: 0.2px;
+    }
+
+    /* ---------- INPUT FIELDS (pill‑shaped) ---------- */
+    .row input {
+      flex: 1;
+      background: #ffffff;
+      border: none;
+      border-radius: 50px;
+      padding: 0.9rem 1.3rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #1e1b2f;
+      outline: none;
+      box-shadow: 0 2px 8px rgba(80, 40, 140, 0.08),
+                  0 0 0 1px rgba(110, 70, 170, 0.15) inset;
+      transition: box-shadow 0.25s, background 0.25s;
+      font-family: inherit;
+      appearance: none;
+    }
+
+    .row input:focus {
+      box-shadow: 0 4px 14px rgba(100, 60, 180, 0.18),
+                  0 0 0 2px #7b4fc9 inset;
+      background: #fefeff;
+    }
+
+    .row input::placeholder {
+      color: #a89bc0;
+      font-weight: 400;
+    }
+
+    /* Remove spinner arrows for a cleaner look */
+    .row input[type=number]::-webkit-outer-spin-button,
+    .row input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .row input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    /* Subtle helper text for the active field */
+    .hint {
+      font-size: 0.75rem;
+      color: #5b4a7a;
+      margin-top: -0.6rem;
+      margin-bottom: 0.8rem;
+      margin-left: 110px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 500px) {
+      .card {
+        padding: 2rem 1.4rem 2rem;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .row {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+      }
+
+      .row label {
+        flex: none;
+        margin-bottom: 0.4rem;
+        font-size: 0.95rem;
+      }
+
+      .row input {
+        width: 100%;
+        padding: 0.8rem 1.2rem;
+      }
+
+      .hint {
+        margin-left: 0;
+        margin-top: 0.2rem;
+        margin-bottom: 0.6rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .card {
+        padding: 1.6rem 1.2rem;
+        border-radius: 18px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="converter-box">
-            <h1>Temperature Converter</h1>
-            
-            <div class="input-group">
-                <label for="temperature">Temperature Value:</label>
-                <input type="number" id="temperature" placeholder="Enter temperature" step="any">
-                <span id="error-message" class="error"></span>
-            </div>
-            
-            <div class="input-group">
-                <label for="unit">Input Unit:</label>
-                <select id="unit">
-                    <option value="celsius">Celsius (°C)</option>
-                    <option value="fahrenheit">Fahrenheit (°F)</option>
-                    <option value="kelvin">Kelvin (K)</option>
-                </select>
-            </div>
-            
-            <button id="convert-btn" class="convert-btn">Convert</button>
-        </div>
-        
-        <div class="results-panel">
-            <h2>Converted Values:</h2>
-            <div class="result-item">
-                <span class="result-label">Celsius:</span>
-                <span id="celsius-result" class="result-value">--</span>
-                <span class="unit">°C</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Fahrenheit:</span>
-                <span id="fahrenheit-result" class="result-value">--</span>
-                <span class="unit">°F</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Kelvin:</span>
-                <span id="kelvin-result" class="result-value">--</span>
-                <span class="unit">K</span>
-            </div>
-            <div id="absolute-zero-warning" class="warning"></div>
-        </div>
+  <!-- Title Card / Splash Screen -->
+  <div class="title-card">
+    <h1 class="title-text">Temperature <span>Converter</span></h1>
+    <p class="subtitle">OIBSIP Level 1 Task 3</p>
+    <p class="info-text">Gajjela Pavani</p>
+    <p class="info-text">Web Development Track</p>
+  </div>
+
+  <!-- Extra decorative bubble (bottom‑left small) -->
+  <div class="bubble-extra"></div>
+
+  <!-- Main card -->
+  <div class="card">
+    <h1>Temperature <span>Converter</span></h1>
+
+    <!-- Celsius row (active / editable) -->
+    <div class="row">
+      <label for="celsius">Celsius:</label>
+      <input type="number" id="celsius" value="24" step="any" placeholder="Enter Temperature">
     </div>
-    
-    <script src="script.js"></script>
+
+    <!-- Fahrenheit row (auto‑filled) -->
+    <div class="row">
+      <label for="fahrenheit">Fahrenheit:</label>
+      <input type="number" id="fahrenheit" placeholder="Enter Temperature" readonly>
+    </div>
+
+    <!-- Kelvin row (auto‑filled) -->
+    <div class="row">
+      <label for="kelvin">Kelvin:</label>
+      <input type="number" id="kelvin" placeholder="Enter Temperature" readonly>
+    </div>
+
+    <!-- Convert Button -->
+    <button id="convert-btn" class="convert-button">Convert</button>
+  </div>
+
+  <script>
+    (function() {
+      // ---------- DOM REFERENCES ----------
+      const celsiusInput = document.getElementById('celsius');
+      const fahrenheitInput = document.getElementById('fahrenheit');
+      const kelvinInput = document.getElementById('kelvin');
+      const convertBtn = document.getElementById('convert-btn');
+
+      // ---------- CONSTANTS ----------
+      const ABSOLUTE_ZERO_C = -273.15;
+
+      // ---------- FORMATTING ----------
+      function formatValue(value) {
+        if (isNaN(value) || !isFinite(value)) return '';
+        // Round to 2 decimals, but remove trailing zeros for a clean look
+        const rounded = Math.round(value * 100) / 100;
+        return rounded;
+      }
+
+      // ---------- MAIN CONVERSION (Celsius → others) ----------
+      function convertFromCelsius() {
+        const raw = celsiusInput.value.trim();
+
+        // If empty or invalid, clear other fields
+        if (raw === '') {
+          fahrenheitInput.value = '';
+          kelvinInput.value = '';
+          return;
+        }
+
+        const celsius = parseFloat(raw);
+        if (isNaN(celsius)) {
+          fahrenheitInput.value = '';
+          kelvinInput.value = '';
+          return;
+        }
+
+        // Perform conversions
+        const fahrenheit = (celsius * 9 / 5) + 32;
+        const kelvin = celsius + 273.15;
+
+        // Update readonly fields with formatted values
+        fahrenheitInput.value = formatValue(fahrenheit);
+        kelvinInput.value = formatValue(kelvin);
+      }
+
+      // ---------- EVENT LISTENERS ----------
+      // Convert when button is clicked
+      convertBtn.addEventListener('click', convertFromCelsius);
+
+      // Allow Enter key to trigger conversion
+      celsiusInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          convertFromCelsius();
+        }
+      });
+
+      // ---------- INITIALISATION ----------
+      // Clear initial values - user must click convert button
+      celsiusInput.value = '';
+      fahrenheitInput.value = '';
+      kelvinInput.value = '';
+    })();
+  </script>
 </body>
 </html>
